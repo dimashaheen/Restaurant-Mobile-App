@@ -1,0 +1,25 @@
+{"Salads" : [
+    {
+        "name" : "Ceaser Salad" ,
+        "price" : 50 , 
+        "img" : ""
+    } , 
+    {
+        "name" : "Chicken Ceaser Salad" ,
+        "price" : 75 , 
+        "img" : ""
+    },
+    {
+        "name" : "Taboulah Salad" ,
+        "price" : 70 , 
+        "img" : ""
+    }
+] , 
+"Iced Coffe Drinks" : [
+     {
+        "name" : "Classic Latte" ,
+        "price" : 58 , 
+        "img" : ""
+    } 
+]
+}
