@@ -34,7 +34,7 @@ const CategoryMenu = () => {
         {
             Data?.map( (category , number) => (
                <Card key={number}  >
-               <Card.Title style={{fontWeight : "bold" , fontSize: 20 , color : "black"}}> {category.name}  </Card.Title>
+               <Card.Title style={styles.title}> {category.name}  </Card.Title>
                 <Card.Divider/>
                <Card.Image  style={styles.image} source= {{uri : category.uri}} />
               
@@ -52,16 +52,17 @@ export default CategoryMenu
 
       container: {
         flex: 1,
-        alignItems: 'center',
+        flexDirection: "column",
+        alignItems: 'stretch',
         justifyContent: 'center' , 
         aspectRatio : 20
       },
       image: {
-        resizeMode: 'cover'    
+        resizeMode: 'contain'    
       },
-      textInput: {
-        fontSize: 16,
+      title: {
+        fontSize: 20,
         fontWeight : "bold" , 
-        color:'black'
+        color:'black',
       }
     });
