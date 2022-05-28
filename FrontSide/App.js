@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Login from './screens/Login';
+import { StyleSheet,SafeAreaView, Text, View } from 'react-native';
+import CategoryMenu from './screens/CategoryMenu';
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Login/>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <CategoryMenu/>
+    </SafeAreaView>
   );
 }
 
