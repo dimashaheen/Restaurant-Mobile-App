@@ -16,11 +16,11 @@ import React from 'react'
 
 
  const sum = 0
- const CalculateTotal = (data) => {
-    while(data<= data.length()) {
-        sum += data.price
+ if (Data.length > 1 ) {
+    while(Data<= Data.length) {
+        sum += Data.price
     }
- }
+}
  console.log(sum)
 
 const CheckOut = () => {
