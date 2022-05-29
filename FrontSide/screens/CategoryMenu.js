@@ -37,7 +37,9 @@ const CategoryMenu = () => {
                <Card.Title style={styles.title}> {category.name}  </Card.Title>
                 <Card.Divider/>
                <Card.Image  style={styles.image} source= {{uri : category.uri}} />
-              
+               <Card.Divider/>
+               <Button title="View" style={styles.viewButton}/>
+
               </Card>
             )   )
         }
@@ -64,5 +66,12 @@ export default CategoryMenu
         fontSize: 20,
         fontWeight : "bold" , 
         color:'black',
+      } ,
+      viewButton : {
+        //backgroundColor : "white" ,
+        alignItems: "center",
+        backgroundColor: "#DDDDDD",
+        padding: 10
+
       }
-    });
+  });
