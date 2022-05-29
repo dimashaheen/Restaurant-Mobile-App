@@ -1,11 +1,47 @@
-import { View, Text } from 'react-native'
+import { SafeAreaView , ScrollView, View, Text , Button } from 'react-native'
+import { Card } from 'react-native-elements'
+
 import React from 'react'
+ const Data = [
+     {
+    name: "Salmon Tempura",
+    price: 24,
+  },
+   {
+    name: "Tuna",
+    price: 19,
+  },
+
+ ]
+
+
+ const sum = 0
+ const CalculateTotal = (data) => {
+    while(data<= data.length()) {
+        sum += data.price
+    }
+ }
+ console.log(sum)
 
 const CheckOut = () => {
   return (
-    <View>
-      <Text>CheckOut</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+        <ScrollView>
+        {
+            Data?.map( (d , number) => (
+               <Card key={number}  >
+               <Card.Title style={styles.title}> {d.name}  </Card.Title>
+               <Text> {d.price} </Text>
+    
+              </Card>
+            )   )
+        }
+        <Card>
+            <Card.Title> Total : {sum}  </Card.Title>
+            <Button title='Checkout' />
+        </Card>
+        </ScrollView>
+    </SafeAreaView>
   )
 }
 
