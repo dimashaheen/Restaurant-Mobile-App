@@ -9,6 +9,7 @@ import FriedRolls from './screens/FriedRolls';
 import UraMaki from './screens/UraMaki';
 import SpecialUra from  './screens/SpecialUra';
 import Drinks from  './screens/Drinks';
+import CheckOut from './screens/CheckOut';
 
 const Stack = createNativeStackNavigator();
 
@@ -59,6 +60,14 @@ const App = () => {
        <Stack.Screen 
         name="Drinks" 
         component={Drinks}
+        options={{
+          headerShown: true,
+          title: '',
+        }} 
+      />
+      <Stack.Screen 
+        name="CheckOut" 
+        component={CheckOut}
         options={{
           headerShown: true,
           title: '',
