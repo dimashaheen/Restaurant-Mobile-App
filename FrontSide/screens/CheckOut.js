@@ -39,7 +39,7 @@ for (let i = 0; i < Data.length; i++) {
             )   )
         }
         <Card>
-            <Card.Title style={{fontWeight : "bold"} ,{fontSize : 20} } > 
+            <Card.Title style={{fontWeight : "bold" , fontSize : 20} } > 
             Total : {sum} LE
             </Card.Title>
             <Button title='Checkout' />

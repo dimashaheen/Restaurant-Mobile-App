@@ -120,35 +120,14 @@
         "img" : ""
     } ,
     {
-        "Fresh Juices" : [
-            {
-                "name" : "Mango",
-                "price" : 30
-            },
-             {
-                "name" : "Strawberry",
-                "price" : 30
-            }, {
-                "name" : "BlueBerry",
-                "price" : 30
-            },
-             {
-                "name" : "Lemon",
-                "price" : 30
-            }
-        ]
-    } ,
+        "name" : "Fresh Juices",
+        "price" : 30 ,
+        "img" : "" 
+    },
     {
-        "Soft Drinks" : [
-            {
-                "name" : "Cola" ,
-                "price" : 24
-            },
-             {
-                "name" : "Sprit" ,
-                "price" : 24
-            }
-        ]
+        "name" : "Soda Drink",
+        "price" : 24,
+        "img" : ""
     }
 ]
 
