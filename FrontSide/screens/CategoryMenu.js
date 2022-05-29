@@ -55,7 +55,7 @@ export default CategoryMenu
         flexDirection: "column",
         alignItems: 'stretch',
         justifyContent: 'center' , 
-        aspectRatio : 20
+      //  aspectRatio : 20
       },
       image: {
         resizeMode: 'contain'    
