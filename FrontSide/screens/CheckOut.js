@@ -1,7 +1,9 @@
 import { SafeAreaView , ScrollView, View, Text , Button , StyleSheet } from 'react-native'
 import { Card } from 'react-native-elements'
 
-import React from 'react'
+import React , {useState} from 'react'
+ 
+const CheckOut = () => {
  const Data = [
      {
     name: "Salmon Tempura",
@@ -24,7 +26,6 @@ for (let i = 0; i < Data.length; i++) {
 }
  console.log(sum)
 
-const CheckOut = () => {
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView>
