@@ -1,7 +1,11 @@
-import { View, Text , StyleSheet , FlatList , SafeAreaView  , Button} from 'react-native'
+import { View, Text , StyleSheet , FlatList , SafeAreaView  , Button, ScrollView} from 'react-native'
 import React , {useState} from 'react'
+import { useNavigation } from '@react-navigation/native'
+import CheckOut from './CheckOut';
 
 const Nigiri = () => {
+  const navigation = useNavigation();
+
   const [cart, setCart] = useState([])
   const items =  [
     {
@@ -64,8 +68,10 @@ const Nigiri = () => {
     );
   };
   
+
   return (
     <SafeAreaView>
+      <Button title='Go CheckOut'  style={styles.checkOutButton}  onPress={() => navigation.navigate(CheckOut)}  />
     <FlatList
       contentContainerStyle={{ alignItems: "stretch" }}
       data={items}
@@ -105,5 +111,11 @@ const styles = StyleSheet.create({
     color: "black",
     padding: 5,
   },
+  checkOutButton : {
+    color : "#00FFFF" ,
+    marginBottom : 20 ,
+    backgroundColor : "#00FFFF"
+    
+  }
  
 })
