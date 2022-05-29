@@ -2,8 +2,10 @@ import { View, Text, SafeAreaView , StyleSheet, ScrollView } from 'react-native'
 import React , {useState , useEffect} from 'react'
 import {Button, Card } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
+import CheckOut from './CheckOut';
 
 const CategoryMenu = () => {
+  
     const Data = [
         {
             id : 1,
@@ -34,9 +36,11 @@ const CategoryMenu = () => {
             uri : 'https://domf5oio6qrcr.cloudfront.net/medialibrary/8931/Smoothie-post.jpg'
         }
     ]
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
+      <Button title='Go CheckOut' style={styles.checkOutButton}  onPress={() => navigation.navigate(CheckOut)}  />
+
         <ScrollView>
         {
             Data?.map( (category , number) => (
@@ -80,5 +84,11 @@ export default CategoryMenu
         backgroundColor: "#DDDDDD",
         padding: 10 
 
-      }
+      },
+      checkOutButton : {
+    color : "#00FFFF" ,
+    marginBottom : 20 ,
+    backgroundColor : "#00FFFF"
+    
+  }
   });
