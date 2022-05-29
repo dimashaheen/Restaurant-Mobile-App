@@ -1,7 +1,8 @@
 import { View, Text , StyleSheet , FlatList , SafeAreaView  , Button} from 'react-native'
-import React from 'react'
+import React , {useState} from 'react'
 
 const Nigiri = () => {
+  const [cart, setCart] = useState([])
   const items =  [
     {
         name : "Salmon" ,
@@ -44,12 +45,21 @@ const Nigiri = () => {
         img : ""    
     }
   ]
+   const addCart = (n) => {
+      const item = {
+        name : n.name ,
+        price : n.price
+      }
+        setCart([...cart,item]);
+    };
+    console.log(cart)
+
     const renderItem = ({ item: n }) => {
     return (
       <View style={styles.itemRow}>
         <Text style={styles.titleInput}>{n.name}</Text>
         <Text style={styles.textInput}>{n.price}  LE</Text>
-        <Button  title='Add to Cart' style = {{fontWeight : "bold"}} />
+        <Button  title='Add to Cart' style = {{fontWeight : "bold"}} onPress={() => addCart(n) } />
       </View>
     );
   };
