@@ -20,7 +20,7 @@ const Nigiri = () => {
     })
   }, []);
 
-  console.log(items)
+ // console.log(items)
 
    const addCart = (items) => {
       const item = {
@@ -44,7 +44,7 @@ const Nigiri = () => {
 
      return (
     <SafeAreaView>
-      <Button title='Go CheckOut'  style={styles.checkOutButton}  onPress={() => navigation.navigate(CheckOut)}  />
+      <Button title='Go CheckOut'  style={styles.checkOutButton}  onPress={() => navigation.navigate(CheckOut , {test:cart})}  />
     <FlatList
       contentContainerStyle={{ alignItems: "stretch" }}
       data={items}
