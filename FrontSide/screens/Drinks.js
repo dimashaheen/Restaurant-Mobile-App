@@ -1,4 +1,4 @@
-import { View, Text , StyleSheet , SafeAreaView  , Button, ScrollView} from 'react-native'
+import { View, Text , StyleSheet , SafeAreaView  , Button, FlatList,ScrollView} from 'react-native'
 import React , {useState , useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CheckOut from './CheckOut';
@@ -6,15 +6,15 @@ import { Card, CardTitle, CardContent, CardImage } from 'react-native-material-c
 import * as axios from 'axios';
 
 
-const SpecialUra = () => {
+const Drinks = () => {
   const navigation = useNavigation();
 
-  const [items, setItems] = useState<Category[]>();
+  const [items, setItems] = useState([]);
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
     Promise.all([
-      axios.default.get(`http://192.168.1.11:3000/items/Special Ura Maki Rolls`),
+      axios.default.get(`http://192.168.8.105:3000/itemsCopy/Drinks`),
     ])
     .then(([{data: categoryResults}]) => {
       if(categoryResults) setItems(categoryResults);
@@ -29,26 +29,32 @@ const SpecialUra = () => {
         setCart([...cart,item]);
     };
     console.log(cart)  
+    
+     const renderItem = ({ item: n }) => {
+     return (
+       <View style={styles.itemRow}>
+         <Text style={styles.titleInput}>{n.name}</Text>
+         <Text style={styles.textInput}>{n.price}  LE</Text>
+         <Button  title='Add to Cart' style = {{fontWeight : "bold"}} onPress={() => addCart(n) } />
+       </View>
+     );
+   };
+  
 
-  return (
+     return (
     <SafeAreaView>
-    <Button title='Go CheckOut'  onPress={() => navigation.navigate(CheckOut as never)}  />
-    <ScrollView>
-      <View style={styles.itemRow}>
-     { 
-         items?.map((it , index: number) => (
-           <Card key={index} style={{borderRadius: 20}}>
-              <CardImage images={it.image} />  
-              <CardTitle  title={it.name}/>
-              <CardContent text={it.price}/>
-              <Button  title='Add to Cart' onPress={() => addCart(it) } />
-            </Card>
-         ))
-        }
-      </View>
-   </ScrollView>
-    </SafeAreaView >
-    )
+      <Button title='Go CheckOut'  style={styles.checkOutButton}  onPress={() => navigation.navigate(CheckOut)}  />
+    <FlatList
+      contentContainerStyle={{ alignItems: "stretch" }}
+      data={items}
+      renderItem={renderItem}
+      keyExtractor={(n, index) => index.toString()}
+    />
+  </SafeAreaView>
+  )
+
+
+ 
 }
 
 
@@ -93,12 +99,6 @@ const styles = StyleSheet.create({
   
 })
 
-type Category = {
-  name : string,
-  price : number,
-  image : string
-}
 
-
-export default SpecialUra
+export default Drinks
 
