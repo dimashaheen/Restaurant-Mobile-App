@@ -14,7 +14,7 @@ const UraMaki = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.default.get(`http://192.168.1.11:3000/items/Ura Maki Rolls`),
+      axios.default.get(`http://192.168.1.5:3000/items/Ura Maki Rolls`),
     ])
     .then(([{data: categoryResults}]) => {
       if(categoryResults) setItems(categoryResults);

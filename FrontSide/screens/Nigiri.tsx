@@ -14,7 +14,7 @@ const Nigiri = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.default.get(`http://192.168.1.11:3000/items/Nigiri`),
+      axios.default.get(`http://192.168.1.5:3000/items/Nigiri`),
     ])
     .then(([{data: categoryResults}]) => {
       if(categoryResults) setItems(categoryResults);

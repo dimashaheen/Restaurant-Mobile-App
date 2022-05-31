@@ -22,5 +22,5 @@ app.get('/itemsCopy/:category', function(req, res) {
 });
 
 app.listen(3000, function() {
-  console.log("[OK] = HTTP Server listening on: http://192.168.1.11:3000");
+  console.log("[OK] = HTTP Server listening on: http://192.168.1.5:3000");
 });

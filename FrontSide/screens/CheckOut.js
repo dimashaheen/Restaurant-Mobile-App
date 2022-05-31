@@ -1,9 +1,12 @@
 import { SafeAreaView , ScrollView, View, Text , Button , StyleSheet } from 'react-native'
 import { Card } from 'react-native-elements'
-
-import React , {useState} from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React , {useState , useEffect} from 'react'
  
 const CheckOut = () => {
+  const [address, setAddress] = useState("");
+  const [mobile, setMobile] = useState("");
+
  const Data = [
      {
     name: "Salmon Tempura",
@@ -16,7 +19,6 @@ const CheckOut = () => {
 
  ]
 
-
  let sum = 0;
  if (Data.length > 1 ) {
 for (let i = 0; i < Data.length; i++) {
@@ -25,6 +27,26 @@ for (let i = 0; i < Data.length; i++) {
    
 }
  console.log(sum)
+
+
+ useEffect(() => {
+  getData();
+}, []);
+
+const getData = () => {
+  try {
+      AsyncStorage.getItem('UserData')
+          .then(value => {
+              if (value != null) {
+                  let user = JSON.parse(value);
+                  setMobile(user.Mobile);
+                  setAddress(user.Address);
+              }
+          })
+  } catch (error) {
+      console.log(error);
+  }
+}
 
   return (
     <SafeAreaView style={styles.container}>
@@ -39,10 +61,12 @@ for (let i = 0; i < Data.length; i++) {
             )   )
         }
         <Card>
+            <Text style={styles.textInput}>Your Address: {address} </Text>
+            <Text style={styles.textInput}>Contact Number: {mobile} </Text>
             <Card.Title style={{fontWeight : "bold" , fontSize : 20} } > 
             Total : {sum} LE
             </Card.Title>
-            <Button title='Checkout' />
+            <Button title='Checkout' onPress={() => console.log(address, mobile)}/>
         </Card>
         </ScrollView>
     </SafeAreaView>

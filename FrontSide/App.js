@@ -10,6 +10,7 @@ import UraMaki from './screens/UraMaki';
 import SpecialUra from  './screens/SpecialUra';
 import Drinks from  './screens/Drinks';
 import CheckOut from './screens/CheckOut';
+import Home from './screens/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,13 @@ const App = () => {
   return (
    <NavigationContainer>
     <Stack.Navigator>
+    <Stack.Screen 
+        name="Home" 
+        component={Home}
+        options={{
+          headerShown: false,  
+        }} 
+      />
       <Stack.Screen 
         name="CategoryMenu" 
         component={CategoryMenu}
