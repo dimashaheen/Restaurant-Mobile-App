@@ -7,7 +7,7 @@ const CheckOut = () => {
   const [address, setAddress] = useState("");
   const [mobile, setMobile] = useState("");
 
-  const [cartItems, setcartItems] = useState([])
+  const [cartItems, setcartItems] = useState([]);
 
  const Data = [
      {
@@ -112,4 +112,4 @@ const styles = StyleSheet.create({
     
   }
  
-})
+});
