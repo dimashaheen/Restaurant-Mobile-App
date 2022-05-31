@@ -6,25 +6,29 @@ import React , {useState , useEffect} from 'react'
 const CheckOut = () => {
   const [address, setAddress] = useState("");
   const [mobile, setMobile] = useState("");
+  const [cartItemsNames, setcartItemsNames] = useState([]);
+  const [cartItemsPrices, setcartItemsPrices] = useState([]);
+  const [friedRollsNames, setfriedRollsNames] = useState([])
+  const [friedRollsPrices, setfriedRollsPrices] = useState([])
+  const [uraMakiNames, seturaMakiNames] = useState([])
+  const [uraMakiPrices, seturaMakiPrices] = useState([])
+  const [specialuraMakiNames, setspecialuraMakiNames] = useState([])
+  const [specialuraMakiPrices, setspecialuraMakiPrices] = useState([])
+  const [drinksNames, setDrinksNames] = useState([])
+  const [drinksPrices, setDrinksPrices] = useState([])
 
-  const [cartItems, setcartItems] = useState([]);
-
- const Data = [
-     {
-    name: "Salmon Tempura",
-    price: 24,
-  },
-   {
-    name: "Tuna",
-    price: 19,
-  },
-
- ]
+ 
+//const arr = cartItemsPrices.split('[')
+//console.log("myArray is ",  cartItemsPrices)
+//
+//cartItemsPrices.slice()
 
  let sum = 0;
- if (Data.length > 1 ) {
-for (let i = 0; i < Data.length; i++) {
-    sum += Data[i].price
+
+ if (cartItemsPrices.length > 1 ) {
+
+for (let i = 0; i < cartItemsPrices.length; i++) {
+    sum += cartItemsPrices[i]
 }
    
 }
@@ -33,6 +37,7 @@ for (let i = 0; i < Data.length; i++) {
 
  useEffect(() => {
   getData();
+  getDataa();
 }, []);
 
 const getData = () => {
@@ -50,14 +55,86 @@ const getData = () => {
   }
 }
 
+const getDataa = async() => {
+  try {
+    const Nigirinames = await AsyncStorage.getItem("nigiriItemsNames")    
+    const Nigiriprices = await AsyncStorage.getItem("nigiriItemsPrices")    
+    const FriedRollsNames = await AsyncStorage.getItem("FriedRollsNames")    
+    const FriedRollsPrices = await AsyncStorage.getItem("FriedRollsPrices") 
+    const UraRollsNames = await AsyncStorage.getItem("UraNames") 
+    const UraRollsPrices = await AsyncStorage.getItem("UraPrices")    
+    const SpecialUraRollsNames = await AsyncStorage.getItem("SpecialUraNames") 
+    const SpecialUraRollsPrices = await AsyncStorage.getItem("SpecialUraPrices")    
+    const DrinksNames = await AsyncStorage.getItem("DrinksNames") 
+    const DrinksPrices = await AsyncStorage.getItem("DrinksPrices")    
+
+    const names = JSON.parse(Nigirinames)
+    const prices = JSON.parse(Nigiriprices)
+    const namesFried = JSON.parse(FriedRollsNames)
+    const pricesFried = JSON.parse(FriedRollsPrices)
+    const namesUra = JSON.parse(UraRollsNames)
+    const pricesUra = JSON.parse(UraRollsPrices)
+    const namesSpecialUra = JSON.parse(SpecialUraRollsNames)
+    const pricesSpecialUra = JSON.parse(SpecialUraRollsPrices)
+    const namesDrinks = JSON.parse(DrinksNames)
+    const pricesDrinks = JSON.parse(DrinksPrices)
+    
+    //console.log("prices afet parcing are : " ,prices)
+    setcartItemsNames(names)
+    setcartItemsPrices(prices)
+    setfriedRollsNames(namesFried)
+    setfriedRollsPrices(pricesFried)
+    seturaMakiPrices(pricesUra)
+    seturaMakiNames(namesUra)
+    setspecialuraMakiNames(namesSpecialUra)
+    setspecialuraMakiPrices(pricesSpecialUra)
+    setDrinksNames(namesDrinks)
+    setDrinksPrices(pricesDrinks)
+
+  } catch (error) {
+     console.log("error in saving")
+  }
+}
+//console.log(cartItems[0])
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView>
         {
-            Data?.map( (d , number) => (
+            cartItemsNames?.map( (d , number) => (
                <Card key={number}  >
-               <Card.Title style={styles.titleInput}> {d.name}  </Card.Title>
-               <Text  style={styles.textInput} > {d.price} LE </Text>
+               <Card.Title style={styles.titleInput}> {d}  </Card.Title>
+    
+              </Card>
+            )   )
+        }
+         {
+            friedRollsNames?.map( (d , number) => (
+               <Card key={number}  >
+               <Card.Title style={styles.titleInput}> {d}  </Card.Title>
+    
+              </Card>
+            )   )
+        }
+         {
+            uraMakiNames?.map( (d , number) => (
+               <Card key={number}  >
+               <Card.Title style={styles.titleInput}> {d}  </Card.Title>
+    
+              </Card>
+            )   )
+        }
+         {
+            specialuraMakiNames?.map( (d , number) => (
+               <Card key={number}  >
+               <Card.Title style={styles.titleInput}> {d}  </Card.Title>
+    
+              </Card>
+            )   )
+        }
+        {
+            drinksNames?.map( (d , number) => (
+               <Card key={number}  >
+               <Card.Title style={styles.titleInput}> {d}  </Card.Title>
     
               </Card>
             )   )
