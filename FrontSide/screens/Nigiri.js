@@ -3,10 +3,14 @@ import React , {useState , useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CheckOut from './CheckOut';
 import * as axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Nigiri = () => {
   const navigation = useNavigation();
+
+  const [nameInTheCart , setNamesInTheCart] = useState([]);
+  const [prciesInTheCart , setPricesInTheCart] = useState([]);
 
   const [items, setItems] = useState([]);
   const [cart, setCart] = useState([]);
@@ -27,10 +31,30 @@ const Nigiri = () => {
         name : items.name ,
         price : items.price
       }
+        setNamesInTheCart([...nameInTheCart,items.name]);
+        setPricesInTheCart([...prciesInTheCart,items.price]);
+
         setCart([...cart,item]);
     };
-    console.log(cart)
+    //console.log(cart)
+   // console.log("names are ",nameInTheCart)
+   // console.log("prices are ",prciesInTheCart)
 
+const store = async(nameInTheCart , prciesInTheCart) => {
+    try {
+      var namescartItems = JSON.stringify(nameInTheCart) ;
+      var pricescartItems = JSON.stringify(prciesInTheCart) ;
+      console.log("names in the cart",namescartItems)
+      console.log("prices in the cart",pricescartItems)
+
+      await AsyncStorage.setItem("nigiriItemsNames", nameInTheCart)
+      await AsyncStorage.setItem("nigiriItemsPrices", pricescartItems)
+
+       console.log("stored successfully")
+    } catch (error) {
+        console.log("error in saving")
+    }
+  }
      const renderItem = ({ item: n }) => {
      return (
        <View style={styles.itemRow}>
@@ -40,11 +64,11 @@ const Nigiri = () => {
        </View>
      );
    };
-  
-
+   
+   //store();
      return (
     <SafeAreaView>
-      <Button title='Go CheckOut'  style={styles.checkOutButton}  onPress={() => navigation.navigate(CheckOut , {test:cart})}  />
+      <Button title='Go CheckOut'  style={styles.checkOutButton}  onPress={() =>store(JSON.stringify(nameInTheCart ), JSON.stringify(prciesInTheCart)) && navigation.navigate(CheckOut)}  />
     <FlatList
       contentContainerStyle={{ alignItems: "stretch" }}
       data={items}
