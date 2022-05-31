@@ -103,7 +103,7 @@ const getDataa = async() => {
             cartItemsNames?.map( (d , number) => (
                <Card key={number}  >
                <Card.Title style={styles.titleInput}> {d}  </Card.Title>
-    
+               <Button title='remove item' style={{alignItems : "right"}}/>
               </Card>
             )   )
         }
@@ -111,7 +111,8 @@ const getDataa = async() => {
             friedRollsNames?.map( (d , number) => (
                <Card key={number}  >
                <Card.Title style={styles.titleInput}> {d}  </Card.Title>
-    
+               <Button title='remove item' style={{alignItems : "right"}}/>
+             
               </Card>
             )   )
         }
@@ -119,6 +120,7 @@ const getDataa = async() => {
             uraMakiNames?.map( (d , number) => (
                <Card key={number}  >
                <Card.Title style={styles.titleInput}> {d}  </Card.Title>
+               <Button title='remove item' style={{alignItems : "right"}}/>
     
               </Card>
             )   )
@@ -127,6 +129,7 @@ const getDataa = async() => {
             specialuraMakiNames?.map( (d , number) => (
                <Card key={number}  >
                <Card.Title style={styles.titleInput}> {d}  </Card.Title>
+               <Button title='remove item' style={{alignItems : "right"}}/>
     
               </Card>
             )   )
@@ -135,7 +138,8 @@ const getDataa = async() => {
             drinksNames?.map( (d , number) => (
                <Card key={number}  >
                <Card.Title style={styles.titleInput}> {d}  </Card.Title>
-    
+               <Button title='remove item' style={{alignItems : "right"}}/>
+
               </Card>
             )   )
         }
