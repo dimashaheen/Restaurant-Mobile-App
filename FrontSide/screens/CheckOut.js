@@ -95,8 +95,28 @@ const getDataa = async() => {
      console.log("error in saving")
   }
 }
-//console.log(cartItems[0])
-  return (
+
+const emptyTheCart = async () => {
+try {
+       await AsyncStorage.removeItem('nigiriItemsNames')
+       await AsyncStorage.removeItem('nigiriItemsPrices')
+       await AsyncStorage.removeItem('FriedRollsNames')
+       await AsyncStorage.removeItem('FriedRollsPrices')
+       await AsyncStorage.removeItem('UraNames')
+       await AsyncStorage.removeItem('UraPrices')
+       await AsyncStorage.removeItem('SpecialUraPrices')
+       await AsyncStorage.removeItem('SpecialUraNames')
+       await AsyncStorage.removeItem('DrinksNames')
+       await AsyncStorage.removeItem('DrinksPrices')
+
+        }
+        catch (error) {
+          console.log("error while deleting")
+        }
+
+}
+
+return (
     <SafeAreaView style={styles.container}>
         <ScrollView>
         {
@@ -149,7 +169,7 @@ const getDataa = async() => {
             <Card.Title style={{fontWeight : "bold" , fontSize : 20} } > 
             Total : {sum} LE
             </Card.Title>
-            <Button title='Checkout' onPress={() => console.log(address, mobile)}/>
+            <Button title='Checkout' onPress={()=> emptyTheCart() &&  console.log(address, mobile)}/>
         </Card>
         </ScrollView>
     </SafeAreaView>
