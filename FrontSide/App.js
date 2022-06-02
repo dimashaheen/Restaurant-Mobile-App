@@ -11,6 +11,7 @@ import SpecialUra from  './screens/SpecialUra';
 import Drinks from  './screens/Drinks';
 import CheckOut from './screens/CheckOut';
 import Home from './screens/Home';
+import Info from './screens/Info';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,13 @@ const App = () => {
     <Stack.Screen 
         name="Home" 
         component={Home}
+        options={{
+          headerShown: false,  
+        }} 
+      />
+        <Stack.Screen 
+        name="Info" 
+        component={Info}
         options={{
           headerShown: false,  
         }} 

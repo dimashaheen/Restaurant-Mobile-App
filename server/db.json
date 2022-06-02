@@ -1,0 +1,166 @@
+{
+  "Nigiri": [
+    {
+      "name": "Salmon",
+      "price": 18,
+      "img": ""
+    },
+    {
+      "name": "Tuna",
+      "price": 19,
+      "img": ""
+    },
+    {
+      "name": "Shrimp",
+      "price": 17,
+      "img": ""
+    },
+    {
+      "name": "Crab Sticks",
+      "price": 15,
+      "img": ""
+    },
+    {
+      "name": "Shrimp Tempura",
+      "price": 24,
+      "img": ""
+    },
+    {
+      "name": "Salmon Tempura",
+      "price": 24,
+      "img": ""
+    },
+    {
+      "name": "Crispy Shrimp",
+      "price": 19,
+      "img": ""
+    },
+    {
+      "name": "Crispy Spicy Tune",
+      "price": 22,
+      "img": ""
+    }
+  ],
+  "Fried-Rolls": [
+    {
+      "name": "Hot Lemmon",
+      "price": 110,
+      "img": ""
+    },
+    {
+      "name": "Golden Lemmon",
+      "price": 105,
+      "img": ""
+    },
+    {
+      "name": "Volcano Philadelphia",
+      "price": 100,
+      "img": ""
+    },
+    {
+      "name": "Crunchy Roll",
+      "price": 70,
+      "img": ""
+    },
+    {
+      "name": " Shrimp Tempura",
+      "price": 115,
+      "img": ""
+    }
+  ],
+  "Ura-Maki-Rolls": [
+    {
+      "name": "Ura Salmon",
+      "price": 102
+    },
+    {
+      "name": "Ura Shrimp",
+      "price": 90
+    },
+    {
+      "name": "Ura Crab",
+      "price": 110
+    },
+    {
+      "name": "California Roll",
+      "price": 85
+    }
+  ],
+  "Special-Ura-Maki-Rolls": [
+    {
+      "name": " Crispy Shrimp",
+      "price": 105,
+      "img": ""
+    },
+    {
+      "name": "Pinky-G",
+      "price": 100,
+      "img": ""
+    },
+    {
+      "name": " Spicy Tuna ",
+      "price": 130,
+      "img": ""
+    },
+    {
+      "name": "Mery-G",
+      "price": 130,
+      "img": ""
+    }
+  ],
+  "Drinks": [
+    {
+      "name": "Water",
+      "price": 20,
+      "img": ""
+    },
+    {
+      "name": "Fresh Juices",
+      "price": 30,
+      "img": ""
+    },
+    {
+      "name": "Soda Drink",
+      "price": 24,
+      "img": ""
+    }
+  ],
+  "Cart": [],
+  "Address": [
+    {
+      "address": "Narges 5",
+      "city": "Cairo",
+      "srea": "New Cairo",
+      "zip": "15236",
+      "id": 1
+    },
+    {
+      "address": "Elrehab",
+      "city": "Cairo",
+      "srea": "New Cairo",
+      "zip": "15451",
+      "id": 2
+    },
+    {
+      "address": "",
+      "city": "",
+      "srea": "",
+      "zip": "",
+      "id": 3
+    }
+  ],
+  "Mobile": [
+    {
+      "mobileNum": "0100235654",
+      "id": 1
+    },
+    {
+      "mobileNum": "01002035659",
+      "id": 2
+    },
+    {
+      "mobileNum": "",
+      "id": 3
+    }
+  ]
+}

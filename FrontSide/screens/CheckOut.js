@@ -1,155 +1,83 @@
-import { SafeAreaView , ScrollView, View, Text , Button , StyleSheet } from 'react-native'
-import { Card } from 'react-native-elements'
+import { SafeAreaView , ScrollView, View, Text , FlatList , StyleSheet } from 'react-native'
+import { Button, Card } from 'react-native-elements'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as axios from 'axios';
 import React , {useState , useEffect} from 'react'
  
 const CheckOut = () => {
   const [address, setAddress] = useState("");
   const [mobile, setMobile] = useState("");
-  const [cartItemsNames, setcartItemsNames] = useState([]);
-  const [cartItemsPrices, setcartItemsPrices] = useState([]);
-  const [friedRollsNames, setfriedRollsNames] = useState([])
-  const [friedRollsPrices, setfriedRollsPrices] = useState([])
-  const [uraMakiNames, seturaMakiNames] = useState([])
-  const [uraMakiPrices, seturaMakiPrices] = useState([])
-  const [specialuraMakiNames, setspecialuraMakiNames] = useState([])
-  const [specialuraMakiPrices, setspecialuraMakiPrices] = useState([])
-  const [drinksNames, setDrinksNames] = useState([])
-  const [drinksPrices, setDrinksPrices] = useState([])
+  const [cart, setCart] = useState([]);
 
- 
-//const arr = cartItemsPrices.split('[')
-//console.log("myArray is ",  cartItemsPrices)
-//
-//cartItemsPrices.slice()
-
- let sum = 0;
-
- if (cartItemsPrices.length > 1 ) {
-
-for (let i = 0; i < cartItemsPrices.length; i++) {
-    sum += cartItemsPrices[i]
-}
-   
-}
- console.log(sum)
-
-
- useEffect(() => {
-  getData();
-  getDataa();
+useEffect(() => {
+  Promise.all([
+    axios.default.get(`http://192.168.1.5:3000/Cart`),
+    axios.default.get(`http://192.168.1.5:3000/Address`),
+    axios.default.get(`http://192.168.1.5:3000/Mobile`)
+  ])
+  .then(([{data: cartResults} , {data: addressResults} , {data: mobileResults}]) => {
+    if(cartResults) setCart(cartResults); 
+    if(addressResults) setAddress(addressResults);
+    if(mobileResults) setMobile(mobileResults);
+  })
+  
 }, []);
 
-const getData = () => {
-  try {
-      AsyncStorage.getItem('UserData')
-          .then(value => {
-              if (value != null) {
-                  let user = JSON.parse(value);
-                  setMobile(user.Mobile);
-                  setAddress(user.Address);
-              }
-          })
-  } catch (error) {
-      console.log(error);
+// let sum = 0;
+
+// if (cart.length > 1 ) {
+
+//   for (let i = 0; i < cart.length; i++) {
+//     sum += cart.price
+//   }
+// } else {
+//   sum += cart.price
+// }
+// console.log(sum)
+
+
+const handleDelete =  async () => { 
+  try{  
+    for (var i = 1 ; i <= cart.length ; i ++) {
+      axios.default.delete(`http://192.168.1.5:3000/Cart/` + i)
+    }
+  }catch(err){
+    console.log(err.message);
   }
-}
 
-const getDataa = async() => {
-  try {
-    const Nigirinames = await AsyncStorage.getItem("nigiriItemsNames")    
-    const Nigiriprices = await AsyncStorage.getItem("nigiriItemsPrices")    
-    const FriedRollsNames = await AsyncStorage.getItem("FriedRollsNames")    
-    const FriedRollsPrices = await AsyncStorage.getItem("FriedRollsPrices") 
-    const UraRollsNames = await AsyncStorage.getItem("UraNames") 
-    const UraRollsPrices = await AsyncStorage.getItem("UraPrices")    
-    const SpecialUraRollsNames = await AsyncStorage.getItem("SpecialUraNames") 
-    const SpecialUraRollsPrices = await AsyncStorage.getItem("SpecialUraPrices")    
-    const DrinksNames = await AsyncStorage.getItem("DrinksNames") 
-    const DrinksPrices = await AsyncStorage.getItem("DrinksPrices")    
+};
 
-    const names = JSON.parse(Nigirinames)
-    const prices = JSON.parse(Nigiriprices)
-    const namesFried = JSON.parse(FriedRollsNames)
-    const pricesFried = JSON.parse(FriedRollsPrices)
-    const namesUra = JSON.parse(UraRollsNames)
-    const pricesUra = JSON.parse(UraRollsPrices)
-    const namesSpecialUra = JSON.parse(SpecialUraRollsNames)
-    const pricesSpecialUra = JSON.parse(SpecialUraRollsPrices)
-    const namesDrinks = JSON.parse(DrinksNames)
-    const pricesDrinks = JSON.parse(DrinksPrices)
-    
-    //console.log("prices afet parcing are : " ,prices)
-    setcartItemsNames(names)
-    setcartItemsPrices(prices)
-    setfriedRollsNames(namesFried)
-    setfriedRollsPrices(pricesFried)
-    seturaMakiPrices(pricesUra)
-    seturaMakiNames(namesUra)
-    setspecialuraMakiNames(namesSpecialUra)
-    setspecialuraMakiPrices(pricesSpecialUra)
-    setDrinksNames(namesDrinks)
-    setDrinksPrices(pricesDrinks)
 
-  } catch (error) {
-     console.log("error in saving")
-  }
-}
-//console.log(cartItems[0])
-  return (
-    <SafeAreaView style={styles.container}>
-        <ScrollView>
-        {
-            cartItemsNames?.map( (d , number) => (
-               <Card key={number}  >
-               <Card.Title style={styles.titleInput}> {d}  </Card.Title>
-    
-              </Card>
-            )   )
-        }
-         {
-            friedRollsNames?.map( (d , number) => (
-               <Card key={number}  >
-               <Card.Title style={styles.titleInput}> {d}  </Card.Title>
-    
-              </Card>
-            )   )
-        }
-         {
-            uraMakiNames?.map( (d , number) => (
-               <Card key={number}  >
-               <Card.Title style={styles.titleInput}> {d}  </Card.Title>
-    
-              </Card>
-            )   )
-        }
-         {
-            specialuraMakiNames?.map( (d , number) => (
-               <Card key={number}  >
-               <Card.Title style={styles.titleInput}> {d}  </Card.Title>
-    
-              </Card>
-            )   )
-        }
-        {
-            drinksNames?.map( (d , number) => (
-               <Card key={number}  >
-               <Card.Title style={styles.titleInput}> {d}  </Card.Title>
-    
-              </Card>
-            )   )
-        }
-        <Card>
-            <Text style={styles.textInput}>Your Address: {address} </Text>
-            <Text style={styles.textInput}>Contact Number: {mobile} </Text>
-            <Card.Title style={{fontWeight : "bold" , fontSize : 20} } > 
-            Total : {sum} LE
-            </Card.Title>
-            <Button title='Checkout' onPress={() => console.log(address, mobile)}/>
-        </Card>
-        </ScrollView>
-    </SafeAreaView>
-  )
+  const renderItem = ({ item: n  , item: a , item: m}) => {
+    return (
+        
+      <ScrollView>
+      <View style={styles.itemRow}>
+        <Text style={styles.titleInput}>{n.name}</Text>
+        <Text style={styles.textInput}>{n.price}  LE</Text>
+      </View>
+      {/* <View>
+        <Text style={styles.textInput}>Your Address: {a.address} , {a.srea}, {a.city} , {a.zip} </Text>
+        <Text style={styles.textInput}>Contact Number: {m.mobileNum} </Text>
+      </View> */}
+    </ScrollView>
+
+    );
+  };
+  
+    return (
+   <SafeAreaView>
+   <FlatList
+     contentContainerStyle={{ alignItems: "stretch" }}
+     data={cart}
+     renderItem={renderItem}
+     keyExtractor={(n, index) => index.toString()}
+   />
+   {/* <FlatList data={address} renderItem={renderItem} keyExtractor={(a, index) => index.toString()}/>
+   <FlatList data={mobile} renderItem={renderItem} keyExtractor={(m, index) => index.toString()}/> */}
+   <Button style={styles.checkOutButton} onPress={() => handleDelete()}>  Checkout </Button>
+ </SafeAreaView>
+ )
 }
 
 export default CheckOut
@@ -182,11 +110,16 @@ const styles = StyleSheet.create({
     color: "black",
     padding: 5,
   },
-  checkOutButton : {
-    color : "#00FFFF" ,
-    marginBottom : 20 ,
-    backgroundColor : "#00FFFF"
-    
-  }
+
+  checkOutButton:{
+    width:"80%",
+    backgroundColor:"#fb5b5a",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop:40,
+    marginBottom:10
+  },
  
 });

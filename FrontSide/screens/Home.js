@@ -1,60 +1,16 @@
-import React , {useState , useEffect} from 'react'
-import { View, Text, Image, StyleSheet, TextInput ,TouchableOpacity, Alert } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react'
+import { View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import CategoryMenu from './CategoryMenu';
+import Info from './Info';
 
-const Login = () => {
-    const [address, setAddress] = useState("");
-    const [mobile, setMobile] = useState("");
-
+const Home = () => {
     const navigation = useNavigation();
-
-    const storeData = async () => {
-     if (mobile.length == 11 ) {
-
-         try {
-             var user = {
-                 Address : address,
-                 Mobile: mobile
-                }
-                await AsyncStorage.setItem('userData', JSON.stringify(user));
-                navigation.navigate(CategoryMenu);
-            } catch (e) {
-                console.log(e);
-            }
-        } else {
-            Alert.alert('You must enter 11 numbers in mobile')
-        }
-      }
-
-    const handleSubmit = () => {
-        storeData();
-    }
-
 
     return(
             <View style={styles.container}>
                 <Image style={styles.Logo} source={require('../assets/welcomeLogo.png')} />
-                <View style={styles.inputView} >
-                <TextInput  
-                    style={styles.inputText}
-                    placeholder="Enter your address..." 
-                    placeholderTextColor="#003f5c"
-                    value={address}
-                    onChangeText={(value) => setAddress(value)}/>
-                </View>
-                <View style={styles.inputView} >
-                <TextInput  
-                    style={styles.inputText}
-                    placeholder="Enter your mobile number..." 
-                    placeholderTextColor="#003f5c"
-                    value={mobile}
-                    onChangeText={(value) => setMobile(value)}
-                    />
-                </View>
-                <TouchableOpacity style={styles.loginBtn} onPress = {handleSubmit}>
-                <Text style={styles.loginText}> Continue </Text>
+                <TouchableOpacity style={styles.loginBtn} onPress = {() => {navigation.navigate(Info)}}>
+                <Text style={styles.loginText}> Let's Start </Text>
                 </TouchableOpacity>
             </View>
 
@@ -125,4 +81,4 @@ const styles = StyleSheet.create({
       }
   });
 
-export default Login;
+export default Home;
