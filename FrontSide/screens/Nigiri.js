@@ -1,9 +1,10 @@
-import { View, Text , StyleSheet , SafeAreaView  ,FlatList, Button, ScrollView } from 'react-native'
+import { View, Text , StyleSheet , SafeAreaView  ,FlatList, Button, Image } from 'react-native'
 import React , {useState , useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CheckOut from './CheckOut';
 import * as axios from 'axios';
 
+const baseUrl = `http://172.20.10.3:3000`;
 
 const Nigiri = () => {
   const navigation = useNavigation();
@@ -12,17 +13,18 @@ const Nigiri = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.default.get(`http://192.168.1.5:3000/Nigiri`),
+      axios.default.get(`${baseUrl}/Nigiri`),
     ])
     .then(([{data: categoryResults}]) => {
       if(categoryResults) setItems(categoryResults);
+      console.log(items)
     })
   }, []);
 
  // console.log(items)
 
   const addToCart = (items) => {
-    fetch(`http://192.168.1.5:3000/Cart`, {
+    fetch(`${baseUrl}/Cart`, {
       method: "POST",
       headers:{'Content-type' : 'application/json'  ,'Accept': 'application/json'}, 
       body: JSON.stringify({
@@ -39,6 +41,7 @@ const Nigiri = () => {
      const renderItem = ({ item: n }) => {
      return (
        <View style={styles.itemRow}>
+         <Image source={{uri: n.img }} style={styles.image} />
          <Text style={styles.titleInput}>{n.name}</Text>
          <Text style={styles.textInput}>{n.price}  LE</Text>
          <Button  title='Add to Cart' style = {{fontWeight : "bold"}} onPress={() => addToCart(n) } />
@@ -70,6 +73,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#f5fcff",
+  },
+
+  image: {
+    resizeMode: 'contain'    
   },
   
   itemRow: {

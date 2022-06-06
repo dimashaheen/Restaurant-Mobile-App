@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native'
 import CheckOut from './CheckOut';
 import * as axios from 'axios';
 
+const baseUrl = `http://172.20.10.3:3000`; 
+
 const FriedRolls = () => {
   const navigation = useNavigation();
   const [items, setItem] = useState([]);
@@ -11,7 +13,7 @@ const FriedRolls = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.default.get(`http://192.168.1.5:3000/Fried-Rolls`),
+      axios.default.get(`${baseUrl}/Fried-Rolls`),
     ])
     .then(([{data: categoryResults}]) => {
       if(categoryResults) setItem(categoryResults);
@@ -19,7 +21,7 @@ const FriedRolls = () => {
   }, []);
 
     const addToCart = (items) => {
-      fetch(`http://192.168.1.5:3000/Cart`, {
+      fetch(`${baseUrl}/Cart`, {
         method: "POST",
         headers:{'Content-type' : 'application/json'  ,'Accept': 'application/json'}, 
         body: JSON.stringify({

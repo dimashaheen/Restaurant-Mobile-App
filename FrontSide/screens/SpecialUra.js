@@ -1,10 +1,11 @@
-import { View, Text , StyleSheet , SafeAreaView ,  FlatList, Button, ScrollView} from 'react-native'
+import { View, Text , StyleSheet , SafeAreaView ,  FlatList, Button, Image} from 'react-native'
 import React , {useState , useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CheckOut from './CheckOut';
 import { Card, CardTitle, CardContent, CardImage } from 'react-native-material-cards'
 import * as axios from 'axios';
 
+const baseUrl = `http://172.20.10.3:3000` ;
 
 const SpecialUra = () => {
   const navigation = useNavigation();
@@ -13,7 +14,7 @@ const SpecialUra = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.default.get(`http://192.168.1.5:3000/Special-Ura-Maki-Rolls`),
+      axios.default.get(`${baseUrl}/Special-Ura-Maki-Rolls`),
     ])
     .then(([{data: categoryResults}]) => {
       if(categoryResults) setItems(categoryResults);
@@ -22,7 +23,7 @@ const SpecialUra = () => {
 
 
   const addToCart = (items) => {
-    fetch(`http://192.168.1.5:3000/Cart`, {
+    fetch(`${baseUrl}/Cart`, {
       method: "POST",
       headers:{'Content-type' : 'application/json'  ,'Accept': 'application/json'}, 
       body: JSON.stringify({
@@ -38,6 +39,7 @@ const SpecialUra = () => {
      const renderItem = ({ item: n }) => {
      return (
        <View style={styles.itemRow}>
+          <Image source={{uri: n.img}} style={styles.image} />
          <Text style={styles.titleInput}>{n.name}</Text>
          <Text style={styles.textInput}>{n.price}  LE</Text>
          <Button  title='Add to Cart' style = {{fontWeight : "bold"}} onPress={() => addToCart(n) } />

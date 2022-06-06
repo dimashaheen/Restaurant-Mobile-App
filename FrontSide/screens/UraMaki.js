@@ -5,6 +5,7 @@ import CheckOut from './CheckOut';
 import { Card, CardTitle, CardContent, CardImage } from 'react-native-material-cards'
 import * as axios from 'axios';
 
+const baseUrl = `http://172.20.10.3:3000` ;
 
 const UraMaki = () => {
   const navigation = useNavigation();
@@ -14,7 +15,7 @@ const UraMaki = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.default.get(`http://192.168.1.5:3000/Ura-Maki-Rolls`),
+      axios.default.get(`${baseUrl}/Ura-Maki-Rolls`),
     ])
     .then(([{data: categoryResults}]) => {
       if(categoryResults) setItems(categoryResults);
@@ -22,7 +23,7 @@ const UraMaki = () => {
   }, []);
 
   const addToCart = (items) => {
-    fetch(`http://192.168.1.5:3000/Cart`, {
+    fetch(`${baseUrl}/Cart`, {
       method: "POST",
       headers:{'Content-type' : 'application/json'  ,'Accept': 'application/json'}, 
       body: JSON.stringify({

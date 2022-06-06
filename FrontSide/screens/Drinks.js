@@ -5,6 +5,7 @@ import CheckOut from './CheckOut';
 import { Card, CardTitle, CardContent, CardImage } from 'react-native-material-cards'
 import * as axios from 'axios';
 
+const baseUrl = `http://172.20.10.3:3000`;  
 
 const Drinks = () => {
   const navigation = useNavigation();
@@ -13,7 +14,7 @@ const Drinks = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.default.get(`http://192.168.1.5:3000/Drinks`),
+      axios.default.get(`${baseUrl}/Drinks`),
     ])
     .then(([{data: categoryResults}]) => {
       if(categoryResults) setItems(categoryResults);
@@ -21,7 +22,7 @@ const Drinks = () => {
   }, []);
 
   const addToCart = (items) => {
-    fetch(`http://192.168.1.5:3000/Cart`, {
+    fetch(`${baseUrl}/Cart`, {
       method: "POST",
       headers:{'Content-type' : 'application/json'  ,'Accept': 'application/json'}, 
       body: JSON.stringify({

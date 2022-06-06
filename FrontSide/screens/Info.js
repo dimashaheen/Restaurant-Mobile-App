@@ -3,6 +3,8 @@ import { View, Text, Image, StyleSheet, TextInput ,TouchableOpacity, Alert } fro
 import { useNavigation } from '@react-navigation/native'
 import CategoryMenu from './CategoryMenu';
 
+const baseUrl = `http://172.20.10.3:3000`; 
+
 const Info = () => {
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
@@ -12,26 +14,8 @@ const Info = () => {
 
     const navigation = useNavigation();
 
-    // const storeData = async () => {
-    //  if (mobile.length == 11 ) {
-
-    //      try {
-    //          var user = {
-    //              Address : address,
-    //              Mobile: mobile
-    //             }
-    //             await AsyncStorage.setItem('userData', JSON.stringify(user));
-    //             navigation.navigate(CategoryMenu);
-    //         } catch (e) {
-    //             console.log(e);
-    //         }
-    //     } else {
-    //         Alert.alert('You must enter 11 numbers in mobile')
-    //     }
-    //   }
-
       const storeAddress = () => {
-        fetch(`http://192.168.1.5:3000/Address`, {
+        fetch(`${baseUrl}/Address`, {
           method: "POST",
           headers:{'Content-type' : 'application/json'  ,'Accept': 'application/json'}, 
           body: JSON.stringify({
@@ -47,7 +31,7 @@ const Info = () => {
       }
 
       const storeMobile = () => {
-        fetch(`http://192.168.1.5:3000/Mobile`, {
+        fetch(`${baseUrl}/Mobile`, {
           method: "POST",
           headers:{'Content-type' : 'application/json'  ,'Accept': 'application/json'}, 
           body: JSON.stringify({

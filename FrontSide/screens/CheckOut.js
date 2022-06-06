@@ -1,46 +1,56 @@
-import { SafeAreaView , ScrollView, View, Text , FlatList , StyleSheet } from 'react-native'
+import { SafeAreaView , ScrollView, View, Text , FlatList , StyleSheet , Alert, TouchableOpacity} from 'react-native'
 import { Button, Card } from 'react-native-elements'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as axios from 'axios';
 import React , {useState , useEffect} from 'react'
  
+const baseUrl = `http://172.20.10.3:3000` ;
+
 const CheckOut = () => {
-  const [address, setAddress] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState([]);
+  const [mobile, setMobile] = useState([]);
   const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
+
+
 
 useEffect(() => {
   Promise.all([
-    axios.default.get(`http://192.168.1.5:3000/Cart`),
-    axios.default.get(`http://192.168.1.5:3000/Address`),
-    axios.default.get(`http://192.168.1.5:3000/Mobile`)
+    axios.default.get(`${baseUrl}/Cart`),
+    axios.default.get(`${baseUrl}/Address/1`),
+    axios.default.get(`${baseUrl}/Mobile/1`)
   ])
   .then(([{data: cartResults} , {data: addressResults} , {data: mobileResults}]) => {
-    if(cartResults) setCart(cartResults); 
-    if(addressResults) setAddress(addressResults);
+    if(cartResults) {
+      let sum = 0 ;
+      for(var i = 0 ; i < cartResults.length ; i ++){
+        sum += cartResults[i].price ;
+      }
+      setTotal(sum) ;
+      setCart(cartResults);
+    }  
+    if(addressResults){ 
+      console.log("address response",addressResults);
+      setAddress(addressResults);
+      console.log("address ..",address);
+        }
     if(mobileResults) setMobile(mobileResults);
   })
   
 }, []);
 
-// let sum = 0;
-
-// if (cart.length > 1 ) {
-
-//   for (let i = 0; i < cart.length; i++) {
-//     sum += cart.price
-//   }
-// } else {
-//   sum += cart.price
-// }
-// console.log(sum)
-
-
 const handleDelete =  async () => { 
   try{  
     for (var i = 1 ; i <= cart.length ; i ++) {
-      axios.default.delete(`http://192.168.1.5:3000/Cart/` + i)
+      await axios.default.delete(`${baseUrl}/Cart/` + i)
     }
+     await axios.default.delete(`${baseUrl}/Address/1`)
+     await axios.default.delete(`${baseUrl}/Mobile/1`)
+    setCart([])
+    setAddress([])
+    setMobile([])
+    setTotal(0)
+
+    Alert.alert("Order is on its way")
   }catch(err){
     console.log(err.message);
   }
@@ -56,10 +66,10 @@ const handleDelete =  async () => {
         <Text style={styles.titleInput}>{n.name}</Text>
         <Text style={styles.textInput}>{n.price}  LE</Text>
       </View>
-      {/* <View>
-        <Text style={styles.textInput}>Your Address: {a.address} , {a.srea}, {a.city} , {a.zip} </Text>
-        <Text style={styles.textInput}>Contact Number: {m.mobileNum} </Text>
-      </View> */}
+     {/* <View>
+        <Text style={styles.textInput}>Your Address: {address.address} , {address.srea}, {address.city} , {address.zip} </Text>
+        <Text style={styles.textInput}>Contact Number: {mobile.mobileNum} </Text>
+    </View> */}
     </ScrollView>
 
     );
@@ -73,9 +83,14 @@ const handleDelete =  async () => {
      renderItem={renderItem}
      keyExtractor={(n, index) => index.toString()}
    />
-   {/* <FlatList data={address} renderItem={renderItem} keyExtractor={(a, index) => index.toString()}/>
-   <FlatList data={mobile} renderItem={renderItem} keyExtractor={(m, index) => index.toString()}/> */}
-   <Button style={styles.checkOutButton} onPress={() => handleDelete()}>  Checkout </Button>
+      <View>
+         <Text style={styles.textInput}>Your Address: {address.address} , {address.srea}, {address.city} , {address.zip} </Text>
+        <Text style={styles.textInput}>Contact Number: {mobile.mobileNum} </Text> 
+      </View> 
+    <Text style={styles.textInput}>Total: {total} </Text> 
+    <TouchableOpacity style={styles.checkOutButton} onPress={() => handleDelete()}>
+      <Text style={{color: 'white'}}> Checkout </Text>
+    </TouchableOpacity>
  </SafeAreaView>
  )
 }
@@ -119,7 +134,9 @@ const styles = StyleSheet.create({
     alignItems:"center",
     justifyContent:"center",
     marginTop:40,
-    marginBottom:10
+    marginBottom:10,
+    marginLeft: 40,
+    fontSize: 16,
   },
  
 });
