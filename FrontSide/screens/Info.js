@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TextInput ,TouchableOpacity, Alert } fro
 import { useNavigation } from '@react-navigation/native'
 import CategoryMenu from './CategoryMenu';
 
-const baseUrl = `http://172.20.10.3:3000`; 
+const baseUrl = `http://192.168.1.10:3000`; 
 
 const Info = () => {
     const [address, setAddress] = useState("");
@@ -26,7 +26,6 @@ const Info = () => {
           })
         }).then((res) => res.text())
           .then(resJson => {
-            console.log("Address:" , resJson)
           }).catch(e => { console.log(e) })
       }
 
@@ -39,7 +38,6 @@ const Info = () => {
           })
         }).then((res) => res.text())
           .then(resJson => {
-            console.log("Mobile:" , resJson)
           }).catch(e => { console.log(e) })
       }
 
@@ -52,8 +50,8 @@ const Info = () => {
 
     return(
             <View style={styles.container}>
-                <Image style={styles.Logo} source={require('../assets/welcomeLogo.png')} />
-                <Text style={{color: "#fb5b5a" , fontWeight: "bold" , fontSize: 16}}> Address Information </Text>
+                <Image style={styles.Image} source={require('../assets/sushiLogo.png')} />
+                <Text style={styles.title1}> Address Information </Text>
                 <View style={styles.inputView} >
                 <TextInput  
                     style={styles.inputText}
@@ -89,7 +87,7 @@ const Info = () => {
                     onChangeText={(value) => setZip(value)}
                     />
                 </View>
-                <Text style={{color: "#fb5b5a" , fontWeight: "bold" , fontSize: 16}}> Contact Information </Text>
+                <Text style={styles.title2}> Contact Information </Text>
                 <View style={styles.inputView} >
                 <TextInput  
                     style={styles.inputText}
@@ -115,16 +113,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
       },
       Image: {
-        width: 200,
-        height: 200,
+        marginLeft: -15,
+        marginTop: -50,
+        width: 270,
+        height: 270,
+        resizeMode: "contain",
         alignItems: 'center'
       },
-    Logo: {
-      width: 300,
-      height: 300,
-      resizeMode: "contain",
-      alignItems: 'center'
-    },
       inputView:{
         width:"80%",
         backgroundColor:"#FFFFFF",
@@ -153,7 +148,6 @@ const styles = StyleSheet.create({
         height:50,
         alignItems:"center",
         justifyContent:"center",
-        marginTop:40,
         marginBottom:10
       },
       loginBtn2:{
@@ -168,6 +162,18 @@ const styles = StyleSheet.create({
       },
       loginText:{
         color:"white"
+      },
+      title1: {
+        marginTop: -80,
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#fb5b5a"
+      },
+      title2: {
+        // marginTop: -100,
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#fb5b5a"
       }
   });
 

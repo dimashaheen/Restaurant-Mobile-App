@@ -1,10 +1,11 @@
-import { View, Text , StyleSheet , SafeAreaView  ,FlatList, Button, Image } from 'react-native'
+import { View, Text , StyleSheet , SafeAreaView  ,FlatList, Button, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React , {useState , useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CheckOut from './CheckOut';
 import * as axios from 'axios';
+import { withTheme } from 'react-native-elements';
 
-const baseUrl = `http://172.20.10.3:3000`;
+const baseUrl = `http://192.168.1.10:3000`;
 
 const Nigiri = () => {
   const navigation = useNavigation();
@@ -17,11 +18,9 @@ const Nigiri = () => {
     ])
     .then(([{data: categoryResults}]) => {
       if(categoryResults) setItems(categoryResults);
-      console.log(items)
     })
   }, []);
 
- // console.log(items)
 
   const addToCart = (items) => {
     fetch(`${baseUrl}/Cart`, {
@@ -30,35 +29,38 @@ const Nigiri = () => {
       body: JSON.stringify({
         "name": items.name,
         "price": items.price,
+        "img" : items.img,
       })
     }).then((res) => res.text())
       .then(resJson => {
-        console.log("cartItem:" , resJson)
-        setCart([...cart , {name: items.name , price: items.price}])
+        setCart([...cart , {name: items.name , price: items.price , img: items.img}])
       }).catch(e => { console.log(e) })
   }
 
      const renderItem = ({ item: n }) => {
      return (
-       <View style={styles.itemRow}>
-         <Image source={{uri: n.img }} style={styles.image} />
+      <SafeAreaView>
+        <View style={styles.card}>
+        <Image source={{uri: n.img}} style={styles.image} />
          <Text style={styles.titleInput}>{n.name}</Text>
          <Text style={styles.textInput}>{n.price}  LE</Text>
-         <Button  title='Add to Cart' style = {{fontWeight : "bold"}} onPress={() => addToCart(n) } />
+         <TouchableOpacity style= {styles.button} onPress={() => addToCart(n) }>
+           <Text style={{color: "white" , fontSize: 16}}> Add to Cart 🛒 </Text>
+         </TouchableOpacity>
        </View>
+      </SafeAreaView>
      );
-   };
-   
-   //store();
-     return (
-    <SafeAreaView>
-      <Button title='Go CheckOut'  style={styles.checkOutButton}  onPress={() => navigation.navigate(CheckOut)}  />
+    };
+    
+    return (
+  <SafeAreaView>
+    <Button title='Go CheckOut'  style={styles.checkOutButton}  onPress={() => navigation.navigate(CheckOut)}  />
     <FlatList
       contentContainerStyle={{ alignItems: "stretch" }}
       data={items}
       renderItem={renderItem}
       keyExtractor={(n, index) => index.toString()}
-    />
+      />
   </SafeAreaView>
   )
 
@@ -75,8 +77,29 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5fcff",
   },
 
+  card: {
+    alignItems: 'flex-start',
+    backgroundColor: "white",
+    borderRadius: 15,
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 1,
+    shadowRadius: 8,
+    elevation: 8,
+    paddingLeft: 16,
+    paddingRight: 14,
+    marginTop: 6,
+    marginBottom: 6,
+    marginLeft: 16,
+    marginRight: 16,
+  },
   image: {
-    resizeMode: 'contain'    
+    resizeMode: 'contain',
+    borderRadius: 15,
+    width: 350,
+    height: 200,
+    marginTop: +3,
+    marginLeft: -5,
+    marginRight: -10
   },
   
   itemRow: {
@@ -86,7 +109,6 @@ const styles = StyleSheet.create({
   },
   
   titleInput: {
-    backgroundColor : "#E6E6E3",
     fontSize: 26,
     fontWeight: "bold",
     color: "black",
@@ -105,7 +127,18 @@ const styles = StyleSheet.create({
     color : "#00FFFF" ,
     marginBottom : 20 ,
     backgroundColor : "#00FFFF"
-    
+  },
+
+  button:  {
+      width : "45%" ,
+      backgroundColor:"#f96d6c",
+      marginBottom : 20 ,
+      marginLeft: 180,
+      borderRadius: 20,
+      alignItems:"center",
+      justifyContent:"flex-end",
+      fontWeight : "bold",
+      padding: 5
   }
   
 })

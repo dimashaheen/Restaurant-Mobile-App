@@ -1,11 +1,12 @@
-import { View, Text, SafeAreaView , StyleSheet, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView , StyleSheet, ScrollView} from 'react-native'
 import React , {useState , useEffect} from 'react'
-import {Button, Card } from 'react-native-elements'
+// import { Card , Button , Icon } from 'react-native-elements'
+import { Button } from 'react-native-elements'
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards'
 import { useNavigation } from '@react-navigation/native'
 import CheckOut from './CheckOut';
 
 const CategoryMenu = () => {
-  
     const Data = [
         {
             id : 1,
@@ -39,21 +40,38 @@ const CategoryMenu = () => {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
-      <Button title='Go CheckOut' style={styles.checkOutButton}  onPress={() => navigation.navigate(CheckOut)}  />
+      <Button title='Proceed to CheckOut' onPress={() => navigation.navigate(CheckOut)} />
 
         <ScrollView>
+          <View>
         {
-            Data?.map( (category , number) => (
-               <Card key={number}  >
-               <Card.Title style={styles.title}> {category.name}  </Card.Title>
-                <Card.Divider/>
-               <Card.Image  style={styles.image} source= {{uri : category.uri}} />
-               <Card.Divider/>
-               <Button title="View" style={styles.viewButton} onPress={() => navigation.navigate(category.screen)}/>
-
-              </Card>
+          Data?.map( (category , number) => (
+            // <Card style={{borderRadius: 20 , marginTop: 15}} key={number} >
+            //       <CardContent style={{marginTop: 10}}>
+            //           <Text style={styles.title}>{category.name}</Text>
+            //         </CardContent>
+            //       <CardImage  style={styles.image} source= {{uri : category.uri}} />
+            //       <CardButton title="View" color="white" style={styles.viewButton} onPress={() => navigation.navigate(category.screen)}/>
+            // </Card>
+                <Card
+                  key={number}
+                  mediaSource={{ uri:  category.uri }}
+                  style={{ borderRadius: 20 , margin: 10 }}
+                >
+                  <CardTitle
+                    style={styles.title}
+                    subtitleAbove={false}
+                    title={category.name}
+                  />
+                    <CardButton
+                      title="View" color="white" 
+                      style={styles.viewButton} 
+                      onPress={() => navigation.navigate(category.screen)}
+                    />
+                </Card>
             )   )
-        }
+          }
+          </View>
         </ScrollView>
     </SafeAreaView>
   )
@@ -71,7 +89,8 @@ export default CategoryMenu
       //  aspectRatio : 20
       },
       image: {
-        resizeMode: 'contain'    
+        resizeMode: 'contain',
+        borderRadius: 15    
       },
       title: {
         fontSize: 20,
@@ -79,16 +98,19 @@ export default CategoryMenu
         color:'black',
       } ,
       viewButton : {
-        //backgroundColor : "white" ,
+        width : "30%" ,
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
-        padding: 10 
+        marginLeft: 10,
+        marginBottom: 10,
+        backgroundColor: "#fb5b5a",
+        padding: 10 ,
+        borderRadius: 20
 
       },
       checkOutButton : {
-    color : "#00FFFF" ,
-    marginBottom : 20 ,
-    backgroundColor : "#00FFFF"
+        color : "#00FFFF" ,
+        marginBottom : 20 ,
+        backgroundColor : "#00FFFF"
     
   }
   });
